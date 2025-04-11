@@ -1,21 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function App() {
+  const [typedText, setTypedText] = useState("");
+  const fullText = "Tranzacționează alături de profesioniști pe un grup live exclusiv, cu lecții gratuite și suport complet.";
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setTypedText((prev) => prev + fullText.charAt(index));
+      index++;
+      if (index === fullText.length) clearInterval(interval);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white font-sans">
+      <style>
+        {`
+          @keyframes fade-in-down {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+
+          @keyframes pulse-fx {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 transparent; }
+            50% { transform: scale(1.05); box-shadow: 0 0 10px #facc15; }
+          }
+
+          .animate-fade-in-down {
+            animation: fade-in-down 0.8s ease-out forwards;
+          }
+
+          .pulse-fx {
+            animation: pulse-fx 2.5s infinite;
+          }
+
+          .glow-hover:hover {
+            box-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
+          }
+
+          .zoom-hover:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+          }
+        `}
+      </style>
+
       {/* Hero Section */}
       <header className="flex flex-col items-center justify-center py-20 px-4 text-center">
-        <div className="text-5xl font-bold flex items-center">
+        <div className="text-5xl font-bold flex items-center animate-fade-in-down">
           <span className="text-gray-200">Pro</span>
-          <span className="bg-yellow-600 text-black px-3 py-1 rounded ml-2">FX</span>
+          <span className="bg-yellow-600 text-black px-3 py-1 rounded ml-2 pulse-fx">FX</span>
         </div>
-        <p className="mt-4 max-w-xl text-lg text-gray-400">
-          Tranzacționează alături de profesioniști pe un grup live exclusiv, cu lecții gratuite și suport complet.
-        </p>
+        <p className="mt-4 max-w-xl text-lg text-gray-400 min-h-[3rem]">{typedText}</p>
         <a
           href="https://www.fpmarkets.com?redir=stv&fpm-affiliate-utm-source=IB&fpm-affiliate-agt=61490"
           target="_blank"
-          className="mt-6 inline-block bg-yellow-600 text-black font-semibold py-3 px-6 rounded hover:bg-yellow-500 transition"
+          className="mt-6 inline-block bg-yellow-600 text-black font-semibold py-3 px-6 rounded hover:bg-yellow-500 transition glow-hover"
         >
           Creează cont FP Markets
         </a>
@@ -63,14 +105,14 @@ export default function App() {
           <a
             href="https://wa.me/40765463353"
             target="_blank"
-            className="bg-green-500 text-white font-semibold py-3 px-6 rounded hover:bg-green-400 transition"
+            className="zoom-hover bg-green-500 text-white font-semibold py-3 px-6 rounded hover:bg-green-400 transition"
           >
             Contactează Sergiu pe WhatsApp
           </a>
           <a
             href="https://wa.me/40728581352"
             target="_blank"
-            className="bg-green-500 text-white font-semibold py-3 px-6 rounded hover:bg-green-400 transition"
+            className="zoom-hover bg-green-500 text-white font-semibold py-3 px-6 rounded hover:bg-green-400 transition"
           >
             Contactează John pe WhatsApp
           </a>
